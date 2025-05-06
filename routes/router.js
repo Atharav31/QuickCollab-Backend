@@ -1,9 +1,7 @@
-const e = require("cors");
 const express = require("express");
-const router = express.Router();
+const apiRouter = express.Router();
+const authRouter = require("./auth");
 
-router.get("/", (req, res) => {
-	res.send("Hello World");
-});
+apiRouter.use("/auth", authRouter);
 
-module.exports = router;
+module.exports = apiRouter;
