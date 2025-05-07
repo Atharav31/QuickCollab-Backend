@@ -5,4 +5,5 @@ const boardRouter = require("./board");
 
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/boards", boardRouter);
+
 module.exports = apiRouter;
