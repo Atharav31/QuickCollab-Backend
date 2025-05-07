@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/users");
+const cookieParser = require("cookie-parser");
 const { generateToken } = require("../utils/token");
 
 exports.login = async (req, res) => {
@@ -26,10 +27,10 @@ exports.login = async (req, res) => {
 
 		const token = generateToken(user);
 		const { password: _, ...userWithoutPassword } = user._doc;
-
+		res.cookie("token", token, { httpOnly: true });
 		res.status(200).json({
 			user: userWithoutPassword,
-			token,
+
 			message: "User logged in successfully",
 		});
 	} catch (error) {
@@ -67,16 +68,24 @@ exports.signUp = async (req, res) => {
 			fullName,
 			password: hashedPassword,
 		});
-
-		const token = generateToken(user);
+		const { password: _, ...userWithoutPassword } = user._doc;
 
 		res.status(201).json({
-			data: user,
-			token,
+			data: userWithoutPassword,
 			message: "User created successfully",
 		});
 	} catch (error) {
 		console.log(error);
+		res.status(500).json({ message: "Internal Server Error" });
+	}
+};
+
+exports.logout = async (req, res) => {
+	try {
+		res.clearCookie("token");
+		res.status(200).json({ message: "User logged out successfully" });
+	} catch (error) {
+		console.error(error);
 		res.status(500).json({ message: "Internal Server Error" });
 	}
 };
