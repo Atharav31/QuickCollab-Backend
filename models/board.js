@@ -20,10 +20,7 @@ const TaskSchema = new mongoose.Schema(
 			enum: ["low", "medium", "high"],
 			default: "medium",
 		},
-		contributor: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "User",
-		},
+
 		dueDate: Date,
 		comments: [
 			{
@@ -51,6 +48,12 @@ const BoardSchema = new mongoose.Schema(
 			ref: "User",
 			required: true,
 		},
+		collaborators: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "User",
+			},
+		],
 	},
 	{ timestamps: true }
 );
