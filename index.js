@@ -16,9 +16,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // CORS
+
+const allowedOrigins = [
+	"http://localhost:5173",
+	"https://quick-collab-frontend.vercel.app/",
+	// "*",
+];
+
 app.use(
 	cors({
-		origin: "http://localhost:5173",
+		origin: allowedOrigins,
 		// origin: "*",
 		methods: ["GET", "POST"],
 		credentials: true,
