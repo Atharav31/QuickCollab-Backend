@@ -4,8 +4,8 @@ export const getBoards = async (req, res) => {
 	try {
 		const boards = await Board.find({
 			$or: [
-				{ userId: req.user._id }, // user is the owner
-				{ collaborators: req.user._id }, // user is a collaborator
+				{ userId: req.user.id }, // user is the owner
+				{ collaborators: req.user.id }, // user is a collaborator
 			],
 		});
 		res.status(200).json({ boards });
