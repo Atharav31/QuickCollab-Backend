@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
 	"http://localhost:5173",
-	"https://quick-collab-frontend.vercel.app/",
+	"https://quick-collab-frontend.vercel.app",
 	// "*",
 ];
 
